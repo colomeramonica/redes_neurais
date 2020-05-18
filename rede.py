@@ -15,10 +15,13 @@ class Rede_Neural:
         self.delta_h2 = [0, 0, 0]
         self.delta_o1 = [0, 0, 0]
         self.delta_o2 = [0, 0, 0]
+        self.resultadoN1 = []
+        self.resultadoN2 = []
+        self.e = 2.7183
 
 
     def getMSE(self):
-        for (idx, val) in range(self.entradas):
+        for (idx, val) in range(self.entradas): # percorrendo as entradas
             neuronio = Neuronio(val, self.pesos_h[0])
             self.h1 = neuronio.saida()
 
@@ -27,3 +30,7 @@ class Rede_Neural:
 
             u1 = self.pesos_o[0][0] + self.h1[idx] * self.pesos_o[0][1] + self.h2[idx] * self.pesos_o[0][2]
             u2 = self.pesos_o[0][0] + self.h1[idx] * self.pesos_o[1][1] + self.h2[idx] * self.pesos_o[1][2]
+
+            self.resultadoN1 = 1 / (1 + pow(self.e, -u1))
+            self.resultadoN2 = 1 / (1 + pow(self.e, -u2))
+
